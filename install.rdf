@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="rdf:#$b72kg1"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.5"
+                   em:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="sealu@sealang.net"
+                   em:name="Click SEAlang"
+                   em:version="0.6.8a"
+                   em:description="Look up selected text in SEAlang dictionaries or tools. Left / right click opens left / bottom panel. Beta version. Send error reports to doug.cooper.thailand@gmail.com"
+                   em:creator="rsperberg"
+                   em:type="2">
+    <em:targetApplication RDF:resource="rdf:#$b72kg1"/>
+    <em:optionsURL>chrome://sealu/content/options.xul</em:optionsURL> 
+    <em:locale>locale/sealu/en-US</em:locale>
+    <em:iconURL>chrome://sealu/content/icon.png</em:iconURL>
+  </RDF:Description>
+</RDF:RDF>
+

@@ -1,0 +1,4 @@
+overlay	chrome://browser/content/browser.xul	chrome://sealu/content/overlay.xul
+content	sealu	chrome/content/
+locale	sealu	en-US	chrome/locale/en-US/
+skin	sealu	classic/1.0	chrome/skin/

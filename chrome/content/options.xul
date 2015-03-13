@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://sealu/locale/sealu.ent" >
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+ 
+<prefwindow id="sealu-prefs"
+     title="&prefs.title;"
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ 
+<prefpane id="sealu-pane" label="&prefs.prefpane.label;" helpURI="chrome://sealu/content/help/sealu-help.rdf">
+  <preferences>
+    <preference id="preflanguage" name="sealu.preflanguage" type="string" instantApply="true" />
+  </preferences>
+ <groupbox align="center" orient="horizontal">
+     <vbox style="height: 380px;">
+   		<text value="&prefs.vbox.heading;" style="font-weight: bold; font-size: large;"/>   
+       		<separator class="thin"/>          
+    		<description style="width: 340px;">&prefs.description;</description>
+      		<separator class="thin"/>  
+  		<groupbox>
+  		    <radiogroup id="languageChoice" preference="preflanguage">
+    			<radio id="radioKhmer" value="Khmer" label="&langKhmer;"  accesskey="k"/>
+    			<radio id="radioThai" value="Thai" label="&langThai;"  accesskey="t"/>
+    			<radio id="radioLao" value="Lao" label="&langLao;"  accesskey="l"/>
+    			<radio id="radioBurmese" value="Burmese" label="&langBurmese;"  accesskey="b"/>
+  		    </radiogroup>
+  		</groupbox>
+    	   </vbox>
+  	</groupbox>
+</prefpane>
+<script type="application/x-javascript" src="chrome://help/content/contextHelp.js" />
+</prefwindow>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:nc="http://home.netscape.com/NC-rdf#">
+
+  <rdf:Description rdf:about="urn:root">
+    <nc:subheadings>
+      <rdf:Seq>
+        <rdf:li><rdf:Description rdf:ID="sealu.welcome" nc:link="chrome://sealu/content/help/welcome.xhtml" nc:title="Welcome" nc:name="Welcome"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.language" nc:link="chrome://sealu/content/help/language.xhtml" nc:title="Language preference" nc:name="Language preference"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.panel" nc:link="chrome://sealu/content/help/panel.xhtml" nc:title="Panel location" nc:name="Panel location"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.tools" nc:link="chrome://sealu/content/help/tools.xhtml" nc:title="SEAlang tools" nc:name="SEAlang tools"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.minimize" nc:link="chrome://sealu/content/help/minimize.xhtml" nc:title="Minimize and restore" nc:name="Minimize and restore"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.homesite" nc:link="chrome://sealu/content/help/homesite.xhtml" nc:title="SEAlang home" nc:name="SEAlang home"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.sealang" nc:link="chrome://sealu/content/help/sealang.xhtml" nc:title="SEAlang" nc:name="SEAlang"/></rdf:li>
+      </rdf:Seq>
+    </nc:subheadings>
+  </rdf:Description>
+  
+  <rdf:Description rdf:about="#sealu.help.tools">
+    <nc:subheadings>
+      <rdf:Seq>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.tools.corpus" nc:link="chrome://sealu/content/help/corpus.xhtml" nc:title="Corpus" nc:name="Corpus"/></rdf:li>
+        <rdf:li><rdf:Description rdf:ID="sealu.help.tools.bitext" nc:link="chrome://sealu/content/help/bitext.xhtml" nc:title="Bitext Corpus" nc:name="Bitext Corpus"/></rdf:li>
+      </rdf:Seq>
+    </nc:subheadings>
+  </rdf:Description>
+  
+</rdf:RDF>

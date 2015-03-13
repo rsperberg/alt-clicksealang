@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- ************ SEAlang Search ********** -->
+<?xml-stylesheet href="chrome://sealu/skin/sealu.css" type="text/css"?> 
+<overlay id="sealuOverlayStylesheet" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+</overlay>
+
+

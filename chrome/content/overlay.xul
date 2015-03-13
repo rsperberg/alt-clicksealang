@@ -1,0 +1,812 @@
+<?xml version="1.0"?>
+
+<!-- ************ SEAlang Lookup ********** -->
+<!-- Panel instantiation, drag-and-drop, initializing and other code based on Split Pannel 0.8.6 by max1million, splitpannel@max.max, http://www.geocities.com/max1million/firefox.htm -->
+
+<!-- Send error reports to doug.cooper.thailand@gmail.com -->
+<!-- ************ Locale **************** -->
+<!-- <!DOCTYPE window SYSTEM "chrome://browser/locale/browser.dtd" > -->
+<!DOCTYPE overlay SYSTEM "chrome://sealu/locale/sealu.ent" >
+
+
+<!-- ************ Stylesheet ************ -->
+<?xml-stylesheet href="data:text/css,
+.sealu {
+  margin: 0px !important;
+  padding: 0px !important;
+  border: 0px !important;
+}
+.sealu-bar {
+  border-top: 1px solid ThreeDHighlight;
+  border-bottom: 1px solid ThreeDShadow;
+}
+#sealu-box {
+  min-height: 20px;
+  min-width: 20px;
+  height: 200px;
+  width: 200px;
+}
+" type="text/css"?>
+
+<!-- ************ Overlay ************ -->
+<overlay id="sealuOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<popupset id="mainPopupSet">
+<stringbundleset id="sealustringbundleset">
+   <stringbundle id="sealu-string-bundle" src="chrome://sealu/locale/sealu.properties"/>
+</stringbundleset>
+<popup id="contentAreaContextMenu">
+    <menuseparator id="sealu-menuSep" />
+    <menuitem 
+        id="sealu-menu-dict" 
+        label="&seaConMenuSearch.label;"
+        tooltiptext="&seaConMenuSearch.tip;"
+        onclick="sealu.gotoSea(event,'sea','dictionary');"/>
+    <menu 
+       id="sealu-submenu-tools"
+       label="&seaConSubMenuTools.label;" tooltiptext="&seaConSubMenuTools.tip;">
+       <menupopup id="sealu-popup1">
+          <menuitem
+            id="sealu-submenu-corpus" 
+            label="&seaConSubMenuCorpus.label;" 
+            tooltiptext="&seaConSubMenuCorpus.tip;"
+            onclick="sealu.gotoSea(event,'sea','corpus');"/>
+          <menuitem
+            id="sealu-submenu-bitext" 
+            label="&seaConSubMenuBitext.label;" 
+            tooltiptext="&seaConSubMenuBitext.tip;"
+            onclick="sealu.gotoSea(event,'sea','bitext');" />
+          <menuitem
+            id="sealu-submenu-reverse-dict" 
+            label="&seaConSubMenuReverseDict.label;" 
+            tooltiptext="&seaConSubMenuReverseDict.tip;"
+            onclick="sealu.gotoSea(event,'English','dictionary');"/>
+          <menuitem 
+            id="sealu-submenu-reverse-bitext" 
+            label="&seaConSubMenuReverseBitext.label;" 
+            tooltiptext="&seaConSubMenuReverseBitext.tip;"
+            onclick="sealu.gotoSea(event,'English','bitext');"/>
+        </menupopup>
+     </menu>
+    <menuseparator id="sealu-menuSep2" />
+</popup>
+</popupset>
+<window id="main-window">
+  <vbox id="sealu-box" hidden="true" persist="height width">
+    <hbox  class="sealu-bar">
+      <toolbar flex="1"
+               id="sealu-nav-bar" class="chromeclass-toolbar sealu" 
+               mode="icons" iconsize="small" context="toolbar-context-menu">
+      <toolbarbutton id="sealu-back-button" disabled="true"
+               oncommand="window.document.getElementById('sealu-browser').goBack(); sealu.title();"
+               class="toolbarbutton-sealu chromeclass-toolbar-additional sealu"
+               label="&backCmd.label;"
+               tooltiptext="&backButton.tooltip;"/>
+      <toolbarbutton id="sealu-forward-button" disabled="true"
+               oncommand="window.document.getElementById('sealu-browser').goForward(); sealu.title();"
+               class="toolbarbutton-sealu chromeclass-toolbar-additional sealu"
+               label="&forwardCmd.label;"
+               tooltiptext="&forwardButton.tooltip;"/>
+      <toolbarbutton id="sealu-stop-button" disabled="false" hidden="false"
+               oncommand="window.document.getElementById('sealu-browser').stop(); sealu.title();"
+               class="toolbarbutton-sealu chromeclass-toolbar-additional sealu" 
+               label="&stopCmd.label;"
+               tooltiptext="&stopButton.tooltip;"/>
+      <toolbarbutton id="sealu-reload-button" disabled="false" hidden="true"
+               class="toolbarbutton-sealu chromeclass-toolbar-additional sealu"
+               oncommand="window.document.getElementById('sealu-browser').reload(); sealu.title();"
+               label="&reloadCmd.label;"
+               tooltiptext="&reloadButton.tooltip;"/>
+      <toolbarbutton id="sealu-orientation-button" 
+               class="toolbarbutton-1 chromeclass-toolbar-additional sealu"
+               oncommand="sealu.changeOrientation(); sealu.title();" 
+               label="&seaOrientButton.label;"
+               tooltiptext="&seaOrientButton.tooltip;"/>
+      <toolbarbutton id="sealu-wheel-button" 
+               class="toolbarbutton-sealu chromeclass-toolbar-additional sealu"
+               oncommand="sealu.gotoSeaDictionary();sealu.title();"
+               context="sealu-statusbar-popup" 
+               label="&seaWheelButton.label;"
+               tooltiptext="&seaWheelButton.tooltip;"/>
+<!-- //             oncommand="sealu.toggle(window.content.document.location, true, 'left', 'http://api.sealang.net?service=identify'); sealu.title();"        
+-->               
+<!--               tooltiptext="Load SEAlang dictionary search page"/> -->
+<!-- //               oncommand="window.document.getElementById('sealu-browser').loadURI('http://sealang.net/'); sealu.title();"
+-->
+      <label id="sealu-title" value="" crop="right" flex="1"
+               ondblclick="sealu.labelClick()"
+               style="-moz-user-focus: normal !important;"
+               ondraggesture="nsDragAndDrop.startDrag(event,sealu.dNd);"
+               ondragover="nsDragAndDrop.dragOver(event, sealu.dNd);"
+               ondragdrop="nsDragAndDrop.drop(event, sealu.dNd);"/>
+      <spring flex="1"/> 
+      </toolbar>
+      <vbox valign="middle">
+        <toolbarbutton align="right" id="sealu-close-button"
+                 class="toolbarbutton-1 chromeclass-toolbar-additional sealu"
+                 tooltiptext="&seaCloseButton.tooltip;" oncommand="sealu.pingpong(event);"/>
+<!-- oncommand="sealu.grabLastSearch();sealu.toggle('', false, false);" -->
+      </vbox>
+    </hbox>
+  </vbox>
+  <splitter id="sealu-splitter" hidden="true"
+        class="chromeclass-extrachrome" />
+</window>
+
+<statusbar id="status-bar">
+  <statusbarpanel id="sealu-statusbar" class="statusbarpanel-iconic" context="sealu-statusbar-popup" tooltiptext="&sealuCollapseButton.tooltip;" oncommand="sealu.pingpong(event);" >
+    <hbox  id="sealu-hbox" style="padding-top: 0px;  padding-left: 4px; padding-right: 4px; padding-bottom: 0px;"  tooltiptext="&sealuCollapseButton.tooltip;" oncommand="sealu.pingpong(event);">
+      <image id="sealu-collapse-button" validate="always" src="chrome://sealu/skin/click-sealang.png" oncommand="sealu.pingpong(event);"/>
+    </hbox>
+  </statusbarpanel>
+</statusbar>
+<popupset>
+   <menupopup id="sealu-statusbar-popup">
+     <menuitem 
+        label="&seaSubmenuLeftDict.label;" 
+        tooltiptext="&seaSubmenuLeftDict.tip;"
+        default="true"
+        oncommand="sealu.openedByIconContext('dictionary','leftpanel');"
+        />
+     <menuitem 
+        label="&seaSubmenuBottomDict.label;" 
+        tooltiptext="&seaSubmenuBottomDict.tip;"
+        default="true" 
+        oncommand="sealu.openedByIconContext('dictionary','bottompanel');"/>
+     <menuseparator/>
+     <menuitem
+        label="&seaSubmenuWindowDict.label;" 
+        tooltiptext="&seaSubmenuWindowDict.tip;"
+        oncommand="sealu.openedByIconContext('dictionary','newwindow');"/>
+     <menuitem 
+        label="&seaSubmenuTabDict.label;" 
+        tooltiptext="&seaSubmenuTabDict.tip;"
+        oncommand="sealu.openedByIconContext('dictionary','newtab');"/>
+   </menupopup>
+ </popupset>
+
+
+<!-- ************************************** Script ******************************************************************* -->
+<script type="application/x-javascript"><![CDATA[
+
+var sealu = {
+//  	    var stringsBundle = document.getElementById("sealu-string-bundle");
+
+  init : function() 
+  {
+  document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",sealu.onContext,false);
+//   setHelpFileURI('chrome://sealu/content/help/sealu-help.rdf');
+  // My inits +++++++++++++++++++++++++++++++++++
+     window.panelPos = "left";
+     window.panelShrunk = false;
+     window.panelStarted = false;
+     window.lastSearch="http://api.sealang.net?service=identify";
+
+      // hide collapse/restore button+++++++++++++++++++++++++++++++
+//	  sealu.collapseButtonToggle(true);
+
+    window.removeEventListener("load",sealu.init,false);
+    try {
+      var context = document.getElementById('contentAreaContextMenu');
+      var showing = context.getAttribute("onpopupshowing");
+      showing = showing.replace(/return gContextMenu/, "sealu.hide(); return gContextMenu");
+      context.setAttribute("onpopupshowing", showing);
+    } catch(e) { dump(e)}
+    if (navigator.preference('extensions.sealu.default.icons')){
+      document.loadOverlay('chrome://sealu/content/stylesheet.xul', null);
+      return; 
+    }
+    function copyStyle(ruleName, to) {
+     if (document.styleSheets) {                            // If browser can play with stylesheets
+        for (var i=0; i<document.styleSheets.length; i++) { // For each stylesheet
+           var styleSheet=document.styleSheets[i];          // Get the current Stylesheet
+           var ii=0;                                        // Initialize subCounter.
+           var cssRule=false;                               // Initialize cssRule. 
+           do {                                             // For each rule in stylesheet
+              cssRule = styleSheet.cssRules[ii];            // Yes --Mozilla Style
+              if (cssRule)  {                               // If we found a rule...
+                 if (cssRule.selectorText==ruleName) {      // Does current rule match ruleName?
+                    cssRule = to+' {' +cssRule.style.cssText+ '}';
+                    return cssRule;                         // return copy of Style
+                 }                                          // End found rule name
+              }                                             // end found cssRule
+              ii++;                                         // Increment sub-counter
+           } while (cssRule)                                // end While loop
+        }                                                   // end For loop
+     }                                                      // end styleSheet ability check
+     return false;                                          // we found NOTHING!
+    }
+    function insert(rule){document.styleSheets[0].insertRule(rule, 0)}
+    var temp;
+    var buttonclass = copyStyle ('toolbar[iconsize="small"] .toolbarbutton-1', '.toolbarbutton-sealu');
+
+    var back = copyStyle ('toolbar[iconsize="small"] #back-button', '#sealu-back-button');
+    var backdis = copyStyle ('toolbar[iconsize="small"] #back-button[disabled="true"]', '#sealu-back-button[disabled="true"]');
+    temp = copyStyle ('toolbar[iconsize="small"] #back-button, toolbar[iconsize="small"] #forward-button[chromedir="rtl"]', '#sealu-back-button');
+    if (temp) back = temp;
+    temp = copyStyle ('toolbar[iconsize="small"] #back-button[disabled="true"], toolbar[iconsize="small"] #forward-button[disabled="true"][chromedir="rtl"]', '#sealu-back-button[disabled="true"]');
+    if (temp) backdis = temp;
+
+    var forward = copyStyle ('toolbar[iconsize="small"] #forward-button', '#sealu-forward-button');
+    var forwarddis = copyStyle ('toolbar[iconsize="small"] #forward-button[disabled="true"]', '#sealu-forward-button[disabled="true"]');
+    temp = copyStyle ('toolbar[iconsize="small"] #forward-button, toolbar[iconsize="small"] #back-button[chromedir="rtl"]', '#sealu-forward-button');
+    if (temp) forward = temp;
+    temp = copyStyle ('toolbar[iconsize="small"] #forward-button[disabled="true"], toolbar[iconsize="small"] #back-button[disabled="true"][chromedir="rtl"]', '#sealu-forward-button[disabled="true"]');
+    if (temp) forwarddis = temp;
+
+    var stop = copyStyle ('toolbar[iconsize="small"] #stop-button', '#sealu-stop-button');
+    var reload = copyStyle ('toolbar[iconsize="small"] #reload-button', '#sealu-reload-button');
+    var wheel = copyStyle ('toolbar[iconsize="small"] #wheel-button', '#sealu-wheel-button');
+//    var home = copyStyle ('toolbar[iconsize="small"] #home-button', '#sealu-home-button');
+    var close = copyStyle ('.tabs-closebutton', '#sealu-close-button');
+    if (buttonclass && back && backdis && forward && forwarddis && stop && reload && wheel && close) {
+      insert(buttonclass);
+      insert(back);
+      insert(backdis);
+      insert(forward);
+      insert(forwarddis);
+      insert(stop);
+      insert(reload);
+      insert(wheel);
+      insert(close);
+    } else {
+      dump("Click SEAlang can't find a style rule so load stylesheet.");
+      document.loadOverlay('chrome://sealu/skin/stylesheet.xul', null);
+    }
+
+    return; 
+  },
+  
+  
+  // ***** set contentAreaContextMenu items hidden
+  hide : function() 
+  {
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+
+    if (document.getElementById('contentAreaContextMenu').getAttribute("sealu")){
+        this.notShowItem("context-sep-open");
+        this.notShowItem("context-back");
+        this.notShowItem("context-forward");
+        this.notShowItem("context-reload");
+        this.notShowItem("context-stop");
+        this.notShowItem("context-sep-stop");
+        this.notShowItem("context-sep-viewbgimage");
+        this.notShowItem("context-bookmarkpage");
+        this.notShowItem("context-savepage");
+        this.notShowItem("context-sendpage");
+        this.notShowItem("context-viewsource");
+        this.notShowItem("context-viewinfo");
+     }
+     document.getElementById('contentAreaContextMenu').removeAttribute('sealu')
+  },
+  // ***** hide one item (specified via name or the item element itself).
+  notShowItem : function ( itemOrId) {
+      var item = itemOrId.constructor == String ? document.getElementById(itemOrId) : itemOrId;
+      if (item)
+        item.hidden = "true";
+  },
+  // ***** get mouse click on menuitem sealu-menu
+  click : function(event) 
+  {
+    if (event.button == 0) this.toggle(
+     window.content.document.location, true, "left");
+    if (event.button == 1) this.toggle(
+     window.content.document.location, true, "bottom");
+     document.getElementById('contentAreaContextMenu').hidePopup();
+    if (event.button == 2) this.toggle(
+     window.content.document.location, true, "bottom");
+  },
+  // ***** get mouse click on menuitem sealu-menu2 *************************************************************************
+  clickSea : function(event,query) 
+  {
+    if (event.button == 0) this.toggle(
+     window.content.document.location, true, "left", query);
+    if (event.button == 1) this.toggle(
+     window.content.document.location, true, "bottom", query);
+     document.getElementById('contentAreaContextMenu').hidePopup();
+    if (event.button == 2) this.toggle(
+     window.content.document.location, true, "bottom", query);
+  },
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+// Added code
+    gotoSea : function(event,direction,seaservice) 
+    {
+      var focusedWindow = document.commandDispatcher.focusedWindow;
+      var selection = focusedWindow.getSelection();
+      var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+	  var prefBranch = prefs.getBranch("sealu.");
+	  if ( prefBranch.prefHasUserValue("preflanguage") )
+        {
+	      var useLang = prefBranch.getCharPref("preflanguage");
+	     }
+	   else {
+	      var useLang = 'Thai';  // using Thai as a default until a preferred language is set
+	     }
+    if (direction == "sea") {
+      var selectionedURI = "http://api.sealang.net?service="+seaservice+"&language="+useLang+"&query="+selection.toString();
+      }
+    else {
+      var selectionedURI = "http://api.sealang.net?service="+seaservice+"&language="+useLang+"&data=secondary&query="+selection.toString();
+      }
+window.lastSearch = selectionedURI;
+window.panelStarted = true;
+sealu.uncollapsePanel();
+//sealu.collapseButtonToggle(false);
+sealu.clickSea(event,selectionedURI);
+
+    }, 
+    
+ 
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  	onContext: function()
+  	{
+  	// these lines grab the correct phrases from sealu.properties for the context menu
+  	    var stringsBundle = document.getElementById("sealu-string-bundle");
+//  	    alert(stringsBundle);
+        var contextMenuSearch = stringsBundle.getString("vcontextMenuSearch");
+        var contextMenuReverseSearch = stringsBundle.getString('vcontextMenuReverseSearch');
+        var contextMenuDictionary = stringsBundle.getString('vcontextMenuDictionary') + " ";
+        var contextMenuBitext = stringsBundle.getString('vcontextMenuBitext');
+    // the reverse-search commands include the language to search in
+    // first get that information
+      var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+	  var prefBranch = prefs.getBranch("sealu.");
+	  if ( prefBranch.prefHasUserValue("preflanguage") )
+        {
+	      var useLang = prefBranch.getCharPref("preflanguage");
+	     }
+	   else {
+	      var useLang = 'Thai';  // using Thai as a default until a preferred language is set; this should match the value in prefs.js
+	     }
+	 // then get the translation of that language from sealu.properties
+switch (useLang)
+{
+case "Burmese":
+  var reverseLang = " " + stringsBundle.getString('vreverseLangBurmese') + " "
+  break
+case "Khmer":
+  var reverseLang = " " + stringsBundle.getString('vreverseLangKhmer') + " "
+  break
+case "Lao":
+  var reverseLang = " " + stringsBundle.getString('vreverseLangLao') + " "
+  break
+default:
+  var reverseLang = " " + stringsBundle.getString('vreverseLangThai') + " "
+}
+
+// this function replaces a ZWSP with a '+' for the display
+String.prototype.plusit = function( exp ){ return this.replace(exp?exp:/\u200b/g,"+"); };
+// and this trims leading and trailing spaces
+function trimString(sInString) {
+  sInString = sInString.replace( /^\s+/g, "" );// strip leading
+  return sInString.replace( /\s+$/g, "" );// strip trailing
+}
+
+// these lines grab the selection and trim it if too long to display in the context menu  	
+  	    var focusedWindow = document.commandDispatcher.focusedWindow;
+  	    var selection = focusedWindow.getSelection();
+  		var selectStr = selection.toString();
+  		var selectionStr = selectStr.plusit();
+  		selectionStr = trimString(selectionStr);
+      if (selectionStr.length> 10)
+        {
+          selectionStr = selectionStr.substring(0,12)+"...";
+         }
+  		if(selectionStr.length == 0) 
+  		{
+  			    document.getElementById("sealu-menuSep").hidden = true;
+  		        document.getElementById("sealu-menu-dict").hidden = true;
+  		        document.getElementById("sealu-submenu-tools").hidden = true;
+  			    document.getElementById("sealu-menuSep2").hidden = true;
+      		}
+  		else 
+  		{
+  				document.getElementById("sealu-menuSep").hidden = false;
+  	            document.getElementById("sealu-menu-dict").hidden = false;
+  		        document.getElementById("sealu-submenu-tools").hidden = false;
+  		        document.getElementById("sealu-menuSep2").hidden = false;
+  
+  // now change the search and reverse-search lines in the context menu to reflect the selection and the preferred language
+//  		        document.getElementById("sealu-menu-dict").label = "SEAlang dictionary: \'"+selectionStr+"\'";
+  		        document.getElementById("sealu-menu-dict").label = contextMenuSearch+selectionStr+"\'";
+   		        document.getElementById("sealu-submenu-reverse-dict").label = contextMenuReverseSearch+reverseLang+contextMenuDictionary;
+ 		        document.getElementById("sealu-submenu-reverse-bitext").label = contextMenuReverseSearch+reverseLang+contextMenuBitext;
+  		}
+    	},
+
+  
+  // ***** toggle panel (href, boolean, position, sealang.net lookup string)
+  toggle : function(url, open, position, seaquery) 
+  {
+    var xbrowser = document.getElementById("browser");
+    var xappcontent = document.getElementById("appcontent");
+    var xcontent = document.getElementById("content");
+    var sealuBox = document.getElementById("sealu-box");
+    var sealuBrowser = document.getElementById("sealu-browser");
+    var sealuTitle = document.getElementById("sealu-title");
+    var sealusplitter = document.getElementById("sealu-splitter");  
+    var sealuNav = document.getElementById("sealu-nav-bar");
+    var sealuBack = sealuNav.firstChild;
+    var sealuForward = sealuNav.firstChild.nextSibling;
+    var sealuStop = sealuNav.firstChild.nextSibling.nextSibling;
+    var sealuReload = sealuNav.firstChild.nextSibling.nextSibling.nextSibling;
+    var sealuHome = sealuNav.firstChild.nextSibling.nextSibling.nextSibling.nextSibling;
+    if (open == false) 
+    {
+      try{
+       sealuBrowser.removeProgressListener(sealuProgressListener);
+      } catch(e) {}
+      try {
+        sealuBrowser.destroy();
+        sealuBox.removeChild(sealuBrowser);
+      }catch (e) {}
+      sealuTitle.setAttribute("value", "");
+      sealuBox.hidden = true;
+      sealusplitter.hidden = true;
+      content.focus();
+      return;
+    }  
+    if (open == true) 
+//    alert("open == true and position = "+position);
+    {
+      // ***** if not in correct position, hide  sealuBox
+//      if (position != sealuBox.getAttribute("position")){
+      if (position != sealuBox.position){
+      try {
+        sealuBrowser.destroy();
+        sealuBox.removeChild(sealuBrowser);
+      }catch (e) {}
+        sealuBox.hidden = true;
+        sealusplitter.hidden = true;
+      }
+      // ***** if hiding re-open sealuBox  in position
+      if (sealuBox.hidden)
+      {
+        sealuBox.hidden = false;
+        sealusplitter.hidden = false;
+        if (position == "left"){
+//         alert("position received == left");
+//          sealuBox.setAttribute("position", "left");
+         sealuBox.position = "left";
+//          alert("just set sealuBox.position to: "+sealuBox.position);
+          sealusplitter.setAttribute("orient", "horizontal");
+          xbrowser.appendChild(sealuBox);
+          xbrowser.appendChild(sealusplitter);
+          xbrowser.insertBefore(sealuBox,xappcontent);
+          xbrowser.insertBefore(sealusplitter,xappcontent);
+          this.browser();
+        }
+//        if (position == "bottom"){
+        else {
+//        alert("position received == bottom");
+//          sealuBox.setAttribute("position", "bottom");
+          sealuBox.position = "bottom";
+//          alert("just set sealuBox.position to: "+sealuBox.position);
+          sealusplitter.setAttribute("orient", "vertical");
+          xappcontent.appendChild(sealusplitter);
+          xappcontent.appendChild(sealuBox);
+          this.browser();
+        }
+//        if (position == "right"){
+//          sealuBox.setAttribute("position", "left");
+//          sealusplitter.setAttribute("orient", "horizontal");
+//          xbrowser.appendChild(sealusplitter);
+//          xbrowser.appendChild(sealuBox);
+//          window.panelPos = "left";
+//          window.panelWidth = sealuBox.width;
+//          this.browser();
+//        }
+        sealuBrowser = document.getElementById("sealu-browser");
+        // ***** set homepage
+        var home = gHomeButton.getHomePage().split("|")[0];
+        if (home != sealuBrowser.getAttribute("homepage"))
+          sealuBrowser.setAttribute("homepage", home);
+      }
+      // ***** set stop/reload button initial state
+      sealuStop.setAttribute("hidden", "false");
+      sealuReload.setAttribute("hidden", "true");
+      // ***** add listener to update ui state
+      try {
+        sealuBrowser.addProgressListener(sealuProgressListener,
+           Components.interfaces.nsIWebProgress.NOTIFY_ALL);
+      }catch (e) {}
+      // ***** load page
+     sealuBrowser.loadURI(seaquery, null, null );
+
+    }
+  },
+  browser : function(){
+    var sealuBox = document.getElementById("sealu-box");
+    var sealuBrowser = document.createElement("browser");
+    sealuBrowser.setAttribute("id", "sealu-browser");
+    sealuBrowser.setAttribute("name", "sealu-browser");
+    sealuBrowser.setAttribute("flex", "1");
+    sealuBrowser.setAttribute("type", "content");
+    sealuBrowser.setAttribute("contextmenu", "contentAreaContextMenu");
+    sealuBrowser.setAttribute("oncontextmenu", "if (event.button == 2){document.getElementById('contentAreaContextMenu').setAttribute('sealu', 'true')}; return contentAreaClick(event, false);");
+    sealuBrowser.setAttribute("onclick", "return contentAreaClick(event, false);");
+    sealuBrowser.setAttribute("ondragdrop", "nsDragAndDrop.drop(event, sealu.dNd);");
+    sealuBox.appendChild(sealuBrowser);
+
+
+  },
+// Toggle position of panel from left to bottom ++++++++++++++++++++++++++++++++++++++++++++++
+
+changeOrientation : function() {
+    var sealuBox = document.getElementById("sealu-box");
+    var currentQuery = window.lastSearch;  // What was the last search? It'll have to be repeated
+    var leftOrBottom = sealuBox.position;     //where's the panel now?
+//    alert('in changeOrientation -- panel is in '+leftOrBottom);
+    // set up the function call to toggle the position to the opposite
+    if (leftOrBottom == "left") {
+        var movePanel = "bottom";
+        sealuBox.position = "left";
+//        alert("if in changeO = true: "+currentQuery+" leftOrBottom: "+leftOrBottom+" movePanel: "+movePanel);
+        }
+    else {
+//        alert("if in changeO = false: "+currentQuery+" leftOrBottom: "+leftOrBottom+" movePanel: "+movePanel);
+        var movePanel = "left";
+        sealuBox.position = "bottom";
+        }
+     sealu.toggle(window.content.document.location,true,movePanel,currentQuery);
+    },
+
+
+//make sure panel is uncollapsed (called before initiating a search)
+uncollapsePanel : function()
+    {
+     var sealuPanel = document.getElementById('sealu-box');
+     sealuPanel.removeAttribute("collapsed");
+     window.panelShrunk = false;
+    },
+    
+// collapse or restore panel    +++++++++++++++++++++++++++++++++++++++++++++
+pingpong : function(event) {
+if (window.panelStarted!=false) {
+    var sealuPanel = document.getElementById('sealu-box');
+//var thepanelposition = window.panelPos;
+   var thepanelshrunk = window.panelShrunk;
+   if (thepanelshrunk == false) {
+       sealuPanel.collapsed="before";
+       window.panelShrunk = true;
+       }
+   else {
+       sealuPanel.removeAttribute("collapsed");
+       window.panelShrunk = false;
+       }
+    }
+else {
+//sealu.gotoSea(event,'sea','identify');
+//sealu.gotoSea(event,'sea','wotd');
+sealu.toggle(window.content.document.location,true,"left","http://api.sealang.net?service=identify");
+    window.panelStarted = true;
+    }
+},  // end pingpong
+
+// Go to the right dictionary for SEAlang wheel icon click ++++++++++++++++++++++++++++++++++++++++++++
+gotoSeaDictionary : function() {
+     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+	 var prefBranch = prefs.getBranch("sealu.");
+	 if ( prefBranch.prefHasUserValue("preflanguage") ) {
+	      var useLang = prefBranch.getCharPref("preflanguage");
+	      }
+	   else {
+	      var useLang = 'Thai';  // using Thai as a default until a preferred language is set
+	      }
+	  useLang = useLang.toLowerCase();
+     var seaquery = "http://sealang.net/"+useLang;
+     window.lastSearch = seaquery;
+     window.document.getElementById('sealu-browser').loadURI(seaquery);
+//    sealuBox.loadURI(seaquery);
+    },
+
+
+// Open SEAlang.net page to specific service in new window or tab, or in panel
+openedByIconContext : function(seaservice,displayedin) {
+// First get the default language
+  var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+  var prefBranch = prefs.getBranch("sealu.");
+  if ( prefBranch.prefHasUserValue("preflanguage") ) {
+  	 var useLang = prefBranch.getCharPref("preflanguage");
+  	 }
+  else {
+  	 var useLang = 'Thai';  // using Thai as a default until a preferred language is set
+  	 }
+  useLang = useLang.toLowerCase();  //search directory is all lowercase
+
+// now build the URI and use it with new window, new tab or within the panel (which may or may not be opened yet)
+      var baseUri = 'http://sealang.net/'+useLang+'/';
+      var seaPage = baseUri+seaservice+'.htm';
+      var position = window.panelPos;
+      var startedYet = window.panelStarted;
+      switch (displayedin) {
+        case "newwindow":
+           window.open(seaPage,'sealang-window','toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes');
+           break
+        case "newtab":
+           getBrowser().addTab(seaPage);
+           break
+        case "leftpanel":
+           if (startedYet != false) {
+              sealu.uncollapsePanel();
+              if (position == "left") {
+                 window.document.getElementById('sealu-browser').loadURI(seaPage);
+                 }
+              else {
+                 sealu.toggle(window.content.document.location,true,'left',seaPage); 
+                 }
+              }
+           else {
+              sealu.toggle(window.content.document.location,true,'left',seaPage); 
+              }
+           window.panelStarted = true;
+           break
+        case "bottompanel":
+           if (startedYet != false) {
+              sealu.uncollapsePanel();
+              if (position == "bottom") {
+                 window.document.getElementById('sealu-browser').loadURI(seaPage);
+                 }
+              else {
+                 sealu.toggle(window.content.document.location,true,'bottom',seaPage); 
+                 }
+              }
+           else {
+              sealu.toggle(window.content.document.location,true,'bottom',seaPage); 
+              }
+           window.panelStarted = true;
+           break
+        }  // end switch
+      },
+
+
+
+
+//grabLastSearch : function() {
+//var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+//var prefBranch = prefs.getBranch("sealu.");
+//if ( prefBranch.prefHasUserValue("lastsearch")) {
+//     prefBranch.setCharPref("lastsearch",window.lastSearch);
+//     }
+//     return;
+// },
+
+  dNd: {
+    onDragStart: function (event , transferData, action)
+      {
+          var txt=document.getElementById('sealu-browser').currentURI.spec; 
+          transferData.data=new TransferData(); 
+          transferData.data.addDataForFlavour("text/unicode",txt); 
+      },
+    onDragOver: function (event, flavour, session)
+      {
+          session.canDrop = true;
+      },
+    onDrop: function (aEvent, aXferData, aDragSession)
+      {
+        var url = transferUtils.retrieveURLFromData(aXferData.data, aXferData.flavour.contentType);
+  
+        // The URL bar automatically handles inputs with newline characters,
+        // so we can get away with treating text/x-moz-url flavours as text/unicode.
+        if (url) {
+          document.getElementById("sealu-browser").loadURI( url, null, null );
+        }
+      },
+    getSupportedFlavours: function ()
+      {
+        var flavourSet = new FlavourSet();
+        flavourSet.appendFlavour("text/x-moz-url");
+        flavourSet.appendFlavour("application/x-moz-file", "nsIFile");
+        flavourSet.appendFlavour("text/unicode");
+        return flavourSet;
+      }
+    },
+  // ***** set start navigation ui
+  start : function() 
+  {
+    var sealuTitle = document.getElementById("sealu-title");
+    var sealuNav = document.getElementById("sealu-nav-bar");
+    var sealuStop = sealuNav.firstChild.nextSibling.nextSibling;
+    var sealuReload = sealuNav.firstChild.nextSibling.nextSibling.nextSibling;
+    sealuTitle.setAttribute("value", "Loading...");
+    sealuStop.setAttribute("hidden", "false");
+    sealuReload.setAttribute("hidden", "true");
+  },
+  // ***** set done navigation ui
+  done : function() 
+  {
+    var sealuNav = document.getElementById("sealu-nav-bar");
+    var sealuStop = sealuNav.firstChild.nextSibling.nextSibling;
+    var sealuReload = sealuNav.firstChild.nextSibling.nextSibling.nextSibling;
+    sealuStop.setAttribute("hidden", "true");
+    sealuReload.setAttribute("hidden", "false");
+    this.updateButtons();
+    this.title();
+  },
+  // ***** update back/forward buttons (enable/disable)
+  updateButtons : function()
+  {
+    var webNavigation = document.getElementById("sealu-browser").webNavigation;
+    var sealuNav = document.getElementById("sealu-nav-bar");
+    var sealuBack = sealuNav.firstChild;
+    var sealuForward = sealuNav.firstChild.nextSibling;
+    var backDisabled = sealuBack.hasAttribute("disabled");
+    var forwardDisabled = sealuForward.hasAttribute("disabled");
+    if (backDisabled == webNavigation.canGoBack) {
+      if (backDisabled)
+        sealuBack.removeAttribute("disabled");
+      else
+        sealuBack.setAttribute("disabled", true);
+    }
+    if (forwardDisabled == webNavigation.canGoForward) {
+      if (forwardDisabled)
+        sealuForward.removeAttribute("disabled");
+      else
+        sealuForward.setAttribute("disabled", true);
+    }
+  },
+  // ***** set title from document
+  title : function() 
+  {
+    var sealuBrowser = document.getElementById("sealu-browser");
+    var sealuTitle = document.getElementById("sealu-title");
+    if (sealuBrowser.contentTitle != "") sealuTitle.setAttribute('value', sealuBrowser.contentTitle);
+    else (sealuTitle.setAttribute('value', sealuBrowser.contentDocument.location));
+  },
+  labelClick : function() 
+  {
+    var b = document.getElementById('sealu-browser'); 
+    var x = prompt('Open Location',b.currentURI.spec,'Open Location'); 
+    if (x) b.loadURI(x);
+  }
+};
+var sealuProgressListener = {    
+  onStateChange : function(aWebProgress, aRequest, aStateFlags, aStatus)
+  {
+    const nsIWebProgressListener = Components.interfaces.nsIWebProgressListener;
+    const nsIChannel = Components.interfaces.nsIChannel;
+    if (aStateFlags & nsIWebProgressListener.STATE_START && 
+      aStateFlags & nsIWebProgressListener.STATE_IS_NETWORK) {
+        sealu.start();
+        return;
+    } else if (aStateFlags & nsIWebProgressListener.STATE_STOP &&
+      aStateFlags & nsIWebProgressListener.STATE_IS_NETWORK) {
+        sealu.done();
+        return;
+    }
+  },
+  onStatusChange : function(webProgress, request, status, message)
+  {
+    return;
+  },
+  onLocationChange : function(webProgress, request, location)
+  {
+    sealu.start();
+    return;
+  },
+  onProgressChange : function(webProgress, request,
+    curSelfProgress, maxSelfProgress,
+    curTotalProgress, maxTotalProgress) {
+      return;
+  },
+  onSecurityChange : function(webProgress, request, state) 
+  {
+    return;
+  },
+  QueryInterface : function(aIID)
+  {
+    if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
+        aIID.equals(Components.interfaces.nsISupportsWeakReference) ||
+        aIID.equals(Components.interfaces.nsISupports))
+    return this;
+    throw Components.results.NS_NOINTERFACE;
+  }
+};
+window.addEventListener("load",sealu.init,false);
+]]></script>
+<!-- ************ -->
+</overlay>
+
+
+
+

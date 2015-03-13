@@ -1,0 +1,197 @@
+
+.sealu{
+  margin: 0px !important;
+  padding: 0px !important;
+  border: 0px !important;
+}
+.sealu-bar {
+  border-top: 1px solid ThreeDHighlight;
+  border-bottom: 1px solid ThreeDShadow;
+}
+#sealu-box {
+  min-height: 20px;
+  min-width: 20px;
+  height: 200px;
+  width: 200px;
+}
+
+/* ::::: 16px primary toolbar buttons ::::: */
+
+toolbar[iconsize="small"] .toolbarbutton-sealu {
+  -moz-box-orient: vertical;
+  min-width: 0;
+  list-style-image: url("toolbar-small-new.png");
+}
+
+toolbar[iconsize="small"] .toolbarbutton-sealu .toolbarbutton-icon {
+  -moz-margin-end: 0px;
+}
+
+toolbar[iconsize="small"] .toolbarbutton-sealu[type="menu-button"] {
+  border: 0 !important;
+}
+
+/* ::::: small back button ::::: */
+
+/* back button-- */
+
+toolbar[iconsize="small"] #sealu-back-button .toolbarbutton-icon {
+  padding-right: 1px;
+}
+toolbar[iconsize="small"] #sealu-back-button {
+  -moz-image-region: rect(0px 16px 16px 0px);
+}
+toolbar[iconsize="small"] #sealu-back-button:not([disabled="true"]):hover,
+toolbar[iconsize="small"] #sealu-back-button[buttonover="true"] {
+  -moz-image-region: rect(16px 16px 32px 0px);
+}
+toolbar[iconsize="small"] #sealu-back-button[disabled="true"] {
+  -moz-image-region: rect(32px 16px 48px 0px);
+}
+toolbar[iconsize="small"] #sealu-back-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(48px 16px 64px 0px);
+}
+
+
+/* small forward button-- */
+
+toolbar[iconsize="small"] #sealu-forward-button .toolbarbutton-icon {
+  padding-right: 1px;
+}
+toolbar[iconsize="small"] #sealu-forward-button {
+  -moz-image-region: rect(0px 32px 16px 16px);
+}
+toolbar[iconsize="small"] #sealu-forward-button:not([disabled="true"]):hover,
+toolbar[iconsize="small"] #sealu-forward-button[buttonover="true"] {
+  -moz-image-region: rect(16px 32px 32px 16px);
+}
+toolbar[iconsize="small"] #sealu-forward-button[disabled="true"] {
+  -moz-image-region: rect(32px 32px 48px 16px);
+}
+toolbar[iconsize="small"] #sealu-forward-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(48px 32px 64px 16px);
+}
+
+/* stop button */
+
+toolbar[iconsize="small"] #sealu-stop-button .toolbarbutton-icon {
+  padding-left: 1px;
+  padding-right: 2px;
+}
+toolbar[iconsize="small"] #sealu-stop-button {
+  -moz-image-region: rect(0px 48px 16px 32px);
+}
+toolbar[iconsize="small"] #sealu-stop-button:not([disabled="true"]):hover {
+  -moz-image-region: rect(16px 48px 32px 32px);
+}
+toolbar[iconsize="small"] #sealu-stop-button[disabled="true"] {
+  -moz-image-region: rect(32px 48px 48px 32px);
+}
+toolbar[iconsize="small"] #sealu-stop-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(48px 48px 64px 32px);
+}
+
+/* reload button */
+
+toolbar[iconsize="small"] #sealu-reload-button .toolbarbutton-icon {
+  padding-left: 1px;
+  padding-right: 2px;
+}
+toolbar[iconsize="small"] #sealu-reload-button {
+  -moz-image-region: rect(0px 64px 16px 48px);
+}
+toolbar[iconsize="small"] #sealu-reload-button:not([disabled="true"]):hover {
+  -moz-image-region: rect(16px 64px 32px 48px);
+}
+toolbar[iconsize="small"] #sealu-reload-button[disabled="true"] {
+  -moz-image-region: rect(32px 64px 48px 48px);
+}
+toolbar[iconsize="small"] #sealu-reload-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(48px 64px 64px 48px);
+}
+/* home button */
+
+toolbar[iconsize="small"] #sealu-wheel-button .toolbarbutton-icon {
+  padding-left: 2px;
+}
+toolbar[iconsize="small"] #sealu-wheel-button {
+  -moz-image-region: rect(0px 96px 16px 80px);
+}
+toolbar[iconsize="small"] #sealu-wheel-button:not([disabled="true"]):hover {
+  -moz-image-region: rect(16px 96px 32px 80px);
+}
+toolbar[iconsize="small"] #sealu-wheel-button[disabled="true"] {
+  -moz-image-region: rect(32px 96px 48px 80px);
+}
+toolbar[iconsize="small"] #sealu-wheel-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(48px 96px 64px 80px);
+}
+
+toolbar[iconsize="small"] #sealu-home-button .toolbarbutton-icon {
+  padding-left: 1px;
+}
+toolbar[iconsize="small"] #sealu-home-button {
+  -moz-image-region: rect(0px 80px 16px 64px);
+}
+toolbar[iconsize="small"] #sealu-home-button:not([disabled="true"]):hover {
+  -moz-image-region: rect(16px 80px 32px 64px);
+}
+toolbar[iconsize="small"] #sealu-home-button[disabled="true"] {
+  -moz-image-region: rect(32px 80px 48px 64px);
+}
+toolbar[iconsize="small"] #sealu-home-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(48px 80px 64px 64px);
+}
+
+
+#sealu-close-button {
+  list-style-image: url("close.png");
+  -moz-appearance: none;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  padding: 4px 2px;
+  border: none !important;
+}
+
+#sealu-close-button {
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+
+#sealu-close-button:hover:active {
+  -moz-image-region: rect(0px, 48px, 16px, 32px);
+}
+
+#sealu-orientation-button {
+  list-style-image: url("toggle-panel.png");
+  -moz-appearance: none;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  padding-left: 4px;
+  border: none !important;
+}
+
+
+#sealu-collapse-button {
+  list-style-image: url("click-sealang.png");
+  -moz-appearance: none;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  padding: 4px 2px;
+  border: none !important;
+}
+
+#sealu-collapse-button {
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+
+#sealu-collapse-button:hover:active {
+  -moz-image-region: rect(0px, 48px, 16px, 32px);
+}
+
+#sealu-collapse-button:not([disabled="true"]):hover,
+#sealu-collapse-button[buttonover="true"] {
+  -moz-image-region: rect(0px 32px 16px 16px);
+}
+#sealu-collapse-button[disabled="true"] {
+  -moz-image-region: rect(0px 48px 16px 32px);
+}
+#sealu-collapse-button:not([disabled="true"]):hover:active {
+  -moz-image-region: rect(0px 64px 16px 48px);
+}

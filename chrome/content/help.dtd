@@ -1,0 +1,65 @@
+<!ENTITY page.title "Click SEAlang help file">
+<!ENTITY para.intro.1 "The Click SEAlang Firefox Add-on looks up words with a single click. Results are sent to a standard panel (not a tab or new window).">
+<!ENTITY para.intro.2 "Highlight a Thai, Khmer, Lao, or Burmese word, right-click, then choose 'SEAlang search ... ' (search dictionary) or 'SEAlang tools ... ' (search corpus or other tools) to find it.">
+<!ENTITY para.intro.3 "Highlight an English word, right-click, then choose 'SEAlang tools ... Reverse-search ...' to reverse-search the SEAlang dictionary or bitext corpus.">
+<!ENTITY para.language.1 "Language preference">
+<!ENTITY para.language.2 "The default English reverse-search dictionary/corpus is Thai.">
+<!ENTITY para.language.3.1 "You can change the reverse search tool to Burmese, Lao, or Khmer after installing Click SEAlang by going to ">
+<!ENTITY para.language.3.2 "Tools  |  Add-ons  |  SEAlang ... Options">
+<!ENTITY para.language.3.3 " in your browser.">
+<!ENTITY para.language.4.1 "No change is needed for a regular search for Burmese, Lao, or Khmer in the dictionary, corpus, or bitext ">
+<!ENTITY para.language.4.2 " only reverse search.">
+<!ENTITY para.panel.1 "Side Panel or Bottom Panel">
+<!ENTITY para.panel.2 "When you select SEAlang dictionary search or any of the commands from the SEAlang tools submenu, clicking with the left mouse button sends the results to a side panel and clicking with the right mouse button sends them to a panel at the bottom of the window.">
+<!ENTITY para.panel.3 "Sometimes the results of a corpus search are more optimally displayed in the bottom panel.">
+<!ENTITY para.tools.1 "Tools at SEAlang.net">
+<!ENTITY para.tools.2 "This is the text that describes the different tools, dictionary, corpus and bitext corpus.">
+<!ENTITY para.tools.3 "A bitext corpus shows words, phrases, and sentences in translation. Insofar as possible, translated texts are aligned sentence-by-sentence.">
+
+<!ENTITY para.corpus.1 "This monolingual corpus consists of Khmer texts published on the Internet, sampled here for research and educational purposes.">
+<!ENTITY para.corpus.2 " - &amp;gt;strong&amp;lt;context&amp;gt;/strong&amp;lt; searches show how the search target appears in context, taking both leading and trailing collocates (or neighboring words) into account. This search returns a merged list of leading and trailing collocates.">
+<!ENTITY para.corpus.3 " - &amp;gt;strong&amp;lt;collocate&amp;gt;/strong&amp;lt; searches are better for focusing on the search target's immediate neighbor. This search returns separate lists of leading and trailing collocates.">
+<!ENTITY para.corpus.4 " - &amp;gt;strong&amp;lt;merged view&amp;gt;/strong&amp;lt; allows for fast switching between collocate and context views.  Try brief first &amp;mdash; downloaded pages may be very large, and a slow browser may fall behind in displaying the detailed view. The Go! button invokes the brief view.">
+<!ENTITY para.corpus.5 " - &amp;gt;strong&amp;lt;raw contexts&amp;gt;/strong&amp;lt; show the search word in context without any attempt at analysis or sanity-checking (local segmentation that helps ensure that a real word has been found).">
+<!ENTITY para.corpus.6 " - &amp;gt;strong&amp;lt;restrict collocates&amp;gt;/strong&amp;lt; requires (or forbids) all collocates to have at least one sense with a particular part of speech or usage.">
+<!ENTITY para.corpus.7 "Wild Things">
+<!ENTITY para.corpus.8 "These specialized wildcard characters represent lists of words.  Predefined wild things are: &amp;gt;strong&amp;lt;N&amp;gt;/strong&amp;lt; (numbers: Thai/roman digits, words for numbers, and partitives [some, every, etc.]), &amp;gt;strong&amp;lt;D&amp;gt;/strong&amp;lt; (demonstratives: this, that, etc., as well as a, the first / last, etc.), &amp;gt;strong&amp;lt;Q&amp;gt;/strong&amp;lt; (questions: interrogatives like why, how, or not, etc.).  ">
+<!ENTITY para.corpus.9 "Required Collocates">
+<!ENTITY para.corpus.10 "The symbols &amp;gt;strong&amp;lt;&amp;gt;&amp;gt;/strong&amp;lt; and &amp;gt;strong&amp;lt;&amp;lt;&amp;gt;/strong&amp;lt; specify required left- or right-hand neighbors. For example, &amp;gt;strong&amp;lt;a &amp;gt; b &amp;lt; c&amp;gt;/strong&amp;lt; only matches &amp;gt;strong&amp;lt;b&amp;gt;/strong&amp;lt; if it is preceded by &amp;gt;strong&amp;lt;a&amp;gt;/strong&amp;lt; and followed by &amp;gt;strong&amp;lt;c&amp;gt;/strong&amp;lt;. This is very helpful in conjuction with &amp;gt;em&amp;lt;wild things&amp;gt;/em&amp;lt;, above.">
+<!ENTITY para.corpus.11 "Segmentation in the SEAlang Library Corpus">
+<!ENTITY para.corpus.12 "Southeast Asian writing is normally broken into phrases, rather than individual words. As yet, it is not possible to automatically segment a sentence into words correctly all of the time. The problem is made even more difficult by the authentic texts we provide: by their nature, they contain many names, loanwords, and misspellings that will undo even the best segmentation algorithm.">
+<!ENTITY para.corpus.13 "Rather than trying to segment our corpus texts in advance, we use peephole segmentation &amp;mdash; we only try to segment the search target's immediate neighbors, on the fly. This will sometimes produce incorrect results. However, it is far more robust and returns much more potentially useful data.">
+<!ENTITY para.corpus.14 "Usage tips">
+<!ENTITY para.corpus.15 "Because the underlying text corpus may be quite large (more than 50 million characters in this implementation), results may be taken from a random sample of hits. For common words, this means that sample contexts and exact collocate frequencies will vary from run to run.">
+<!ENTITY para.corpus.16 "Clicking on a word/collocate with the mouse starts a new search: yellow searches for contexts and black searches for collocates.">
+<!ENTITY para.bitext.1.1 "A">
+<!ENTITY para.bitext.1.2 " bitext corpus ">
+<!ENTITY para.bitext.1.3 "shows words, phrases, and sentences in translation. Insofar as possible, translated texts are aligned sentence-by-sentence. Bitext corpora have many applications:">
+<!ENTITY para.bitext.2.1 "In education "
+<!ENTITY para.bitext.2.2 " Bitexts can markedly increase student reading and comprehension in a second language. Because the raw volume of text they read jumps so dramatically, students are exposed to a much wider vocabulary Moreover, when text is easier to read, students can begin to understand large-scale features of style and grammar. Bitexts have long been a mainstay of second-language education for European languages, and are equally valuable for students of English and Southeast Asian languages.">
+<!ENTITY para.bitext.3.1 "Bitext search tools are a cornerstone of data-driven learning. Calling up a dozen examples of a word, phrase, or construction helps students understand and retain subtle distinctions of meaning and usage. It is even more helpful in teaching writing than reading, because bitext searches let real-world experts ">
+<!ENTITY para.bitext.3.2 " writer and translators ">
+<!ENTITY para.bitext.3.3 " provide on-the-spot advice and examples.">
+<!ENTITY para.bitext.4 " - &amp;gt;strong&amp;lt;in research&amp;gt;/strong&amp;lt; Bitexts are an essential part of research in translation, word-sense disambiguation, and lexicography. Because they let us leverage tools and techniques from other languages, particularly English, they are extremely important for learning how to build search engines, summarize documents, align texts, and so on for SEA languages.">
+<!ENTITY para.bitext.5 "This bitext corpus includes texts published on the Internet, sampled here for research and educational purposes, as well as translated texts used here with permission of the author and/or translator. Special thanks to Marcel Barang and the Wanakam World Classics in Thai project for allowing their texts to be used in the Thai bitext corpus. The preliminary bitext corpus for Khmer consists of examples extracted from both the 1977 and 1997 editions of Robert Headley's &amp;gt;em&amp;lt;Cambodian-English Dictionary&amp;gt;/em&amp;lt;.">
+<!ENTITY parasealang "The Southeast Asian Languages Library">
+<!ENTITY para.sealang.2 "The SEAlang Library was established in 2005. It provides language reference materials for Southeast Asia, with an initial four-year focus on the non-roman script languages used throughout the mainland.">
+<!ENTITY para.sealang.3 "SEAlang Library resources include bilingual and monolingual dictionaries, monolingual text corpora, aligned bitext corpora, and a variety of tools for manipulating, searching, and displaying complex scripts.">
+<!ENTITY para.sealang.4 "SEAlang is a collaborative effort between CRCL Inc., and the University of Wisconsin-Madison Center for Southeast Asian Studies (CSEAS).  We work closely with the Southeast Asian Studies Summer Institute (SEASSI) program, hosted by CSEAS on behalf of fourteen member institutions, including all US National Resource Centers for SEA Studies.">
+<!ENTITY para.sealang.5 "Primary funding is provided by the U.S. Department of Education Technical Innovation and Cooperation for Foreign Information Access (TICFIA) program, with matching funds from CRCL Inc. Other TICFIA-funded digital library programs with substantial dictionary reference resources include the Digital South Asia Library and the Tibetan &amp; Himalayan Digital Library.">
+<!ENTITY para.minimize.1 "Minimize and Restore">
+<!ENTITY para.minimize.2 "In the statusbar, Click SEAlang has installed a small icon to facilitate use of the extension.">
+<!ENTITY para.minimize.3 "Clicking the icon will toggle the Click SEAlang panel between minimal or restored size. Even in the minimal state, however, you are able to click the close button to remove the Click SEAlang panel.">
+<!ENTITY para.homesite.1 "SEAlang home">
+<!ENTITY para.homesite.2 "Clicking the SEAlang icon in the Click SEAlang toolbar will open the home web page for SEAlang, sealang.net. Richer search capabilities are available from the pages there.">
+<!ENTITY para.homesite.3 "Special bonus feature">
+<!ENTITY para.homesite.4 "Dragging a URI from the main window into the Click SEAlang panel will open that web page in the panel.">
+ <!ENTITY parawelcome "Welcome to Click SEAlang!">
+ <!ENTITY para.welcome.2 "The Click SEAlang Firefox add-on looks up words with a single click. Results are sent to a standard panel (not a tab or new window).">
+ <!ENTITY para.welcome.3 "Using help for SEAlang search works the same as it does with any other help file in the browser.">
+ <!ENTITY para.welcome.4 "Select the topic in the left panel that you'd like to know more about.">
+ <!ENTITY para.welcome.5 "Any bugs should be sent to Doug Cooper, doug.cooper.thailand@gmail.com">
+
+
+
+
